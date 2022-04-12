@@ -1,13 +1,17 @@
 <template>
   <div>
     <h1>This is a crypto history</h1>
-    <p>{{ cryptoId }}</p>
+    <CryptoTable :items="myCrypto" />
   </div>
 </template>
 <script>
 import axios from "axios";
+import CryptoTable from "@/components/CryptoTable.vue";
 export default {
   name: "CryptoView",
+  components: {
+    CryptoTable,
+  },
   data() {
     return {
       myCrypto: [],
@@ -32,7 +36,7 @@ export default {
       try {
         const request = await axios.get(URL);
         const data = request.data;
-        console.log(data);
+        this.myCrypto = data.reverse();
       } catch (error) {
         console.log(error);
       }
