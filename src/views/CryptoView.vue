@@ -6,5 +6,16 @@
 <script>
 export default {
   name: "CryptoView",
+  data() {
+    return {
+      myCrypto: [],
+    };
+  },
+  methods: {
+    async getCrypto() {
+      
+      
+    }
+  },
 };
 </script>

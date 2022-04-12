@@ -21,6 +21,7 @@
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
+    <p class="mt-3">Current Page: {{ currentPage }}</p>
   </div>
 </template>
 
@@ -32,6 +33,11 @@ export default {
       perPage: 15,
       currentPage: 1,
     };
+  },
+  computed: {
+    rows() {
+      return this.items.length;
+    },
   },
   props: {
     items: {
