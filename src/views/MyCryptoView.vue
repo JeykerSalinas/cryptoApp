@@ -1,16 +1,16 @@
 <template>
   <div>
     <h1>This is a crypto history</h1>
-    <CryptoTable :items="myCrypto" />
+    <CryptoHistory :items="myCrypto" />
   </div>
 </template>
 <script>
 import axios from "axios";
-import CryptoTable from "@/components/CryptoTable.vue";
+import CryptoHistory from "@/components/CryptoHistory.vue";
 export default {
   name: "CryptoView",
   components: {
-    CryptoTable,
+    CryptoHistory,
   },
   data() {
     return {
@@ -25,8 +25,6 @@ export default {
     async getCrypto() {
       const now = new Date().getTime();
       const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).getTime();
-      console.log(Math.round(now / 1000));
-      console.log(Math.round(weekAgo / 1000));
       const URL = `https://api.coinpaprika.com/v1/coins/${
         this.cryptoId
       }/ohlcv/historical?start=${Math.round(weekAgo / 1000)}&end=${Math.round(
