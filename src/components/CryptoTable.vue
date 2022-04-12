@@ -9,7 +9,7 @@
         small
       >
         <template #cell(id)="data">
-          <router-link :to="'./about/' + data.item.id">{{
+          <router-link :to="'./crypto/' + data.item.id">{{
             data.item.id
           }}</router-link>
         </template>

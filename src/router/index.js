@@ -9,18 +9,18 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
-    // children: [
-    //   {
-    //     path: ":id",
-    //     name: "crypto",
-    //     component: () => import("../views/CryptoView.vue"),
-    //   },
-    // ],
   },
   {
-    path: "/id",
+    path: "/crypto",
     name: "crypto",
     component: () => import("../views/CryptoView.vue"),
+    children: [
+      {
+        path: ":id",
+        name: "myCrypto",
+        component: () => import("../views/MyCryptoView.vue"),
+      },
+    ],
   },
 ];
 

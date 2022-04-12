@@ -1,21 +1,13 @@
 <template>
   <div>
-    <h1>This is a crypto history</h1>
+    <router-view />
   </div>
 </template>
+
 <script>
 export default {
   name: "CryptoView",
-  data() {
-    return {
-      myCrypto: [],
-    };
-  },
-  methods: {
-    async getCrypto() {
-      
-      
-    }
-  },
 };
 </script>
+
+<style lang="scss" scoped></style>
