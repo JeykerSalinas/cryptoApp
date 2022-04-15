@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1>This is a crypto history</h1>
-    <CryptoHistory :items="myCrypto" />
+    <CryptoHistory :myCrypto="myCrypto" />
   </div>
 </template>
 <script>
-import axios from "axios";
 import CryptoHistory from "@/components/CryptoHistory.vue";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "CryptoView",
   components: {
@@ -14,31 +14,17 @@ export default {
   },
   data() {
     return {
-      myCrypto: [],
       cryptoId: this.$route.params.id,
     };
   },
+  computed: {
+    ...mapState(["myCrypto"]),
+  },
   created() {
-    this.getCrypto();
+    this.getCrypto(this.cryptoId);
   },
   methods: {
-    async getCrypto() {
-      const now = new Date().getTime();
-      const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).getTime();
-      const URL = `https://api.coinpaprika.com/v1/coins/${
-        this.cryptoId
-      }/ohlcv/historical?start=${Math.round(weekAgo / 1000)}&end=${Math.round(
-        now / 1000
-      )}
-      `;
-      try {
-        const request = await axios.get(URL);
-        const data = request.data;
-        this.myCrypto = data.reverse();
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    ...mapActions(["getCrypto"]),
   },
 };
 </script>

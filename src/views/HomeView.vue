@@ -1,38 +1,27 @@
 <template>
   <div class="home">
-    <CryptoTable :items="cryptos" />
+    <CryptoTable :items="myData" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CryptoTable from "@/components/CryptoTable.vue";
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "HomeView",
   components: {
     CryptoTable,
   },
-  data() {
-    return {
-      cryptos: [],
-    };
+  computed: {
+    ...mapState(["myData"]),
   },
   created() {
     this.getData();
   },
   methods: {
-    async getData() {
-      try {
-        const request = await axios.get("https://api.coinpaprika.com/v1/coins");
-        const data = request.data;
-        this.cryptos = data;
-        console.log(this.cryptos);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    ...mapActions(["getData"]),
   },
 };
 </script>

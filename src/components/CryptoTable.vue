@@ -18,7 +18,6 @@
             hover
             responsive
             outlined
-            id="my-table"
             :items="!search ? items : filteredItems"
             :fields="fields"
             :per-page="perPage"

@@ -1,27 +1,84 @@
 <template>
   <div>
-    <div>
-      <b-table id="my-table" :items="items" small>
-        <template #cell(time_open)="data">
-          {{ new Date(data) }}
-        </template>
-      </b-table>
-    </div>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-table
+            id="my-table"
+            :items="myCrypto"
+            hover
+            responsive
+            outlined
+            :head-variant="'dark'"
+            :busy="myCrypto.length === 0 ? true : false"
+          >
+            <template #cell(time_open)="data">
+              {{ dateFormat(data.item.time_open) }}
+            </template>
+            <template #cell(time_close)="data">
+              {{ dateFormat(data.item.time_close) }}
+            </template>
+            <template #cell(open)="data">
+              {{ currencyFormat(data.item.open) }}
+            </template>
+            <template #cell(high)="data">
+              {{ currencyFormat(data.item.high) }}
+            </template>
+            <template #cell(low)="data">
+              {{ currencyFormat(data.item.low) }}
+            </template>
+            <template #cell(close)="data">
+              {{ currencyFormat(data.item.close) }}
+            </template>
+            <template #cell(volume)="data">
+              {{ currencyFormat(data.item.volume) }}
+            </template>
+            <template #cell(market_cap)="data">
+              {{ currencyFormat(data.item.market_cap) }}
+            </template>
+            <template #table-busy>
+              <div class="text-center my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
+            </template>
+          </b-table>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 export default {
   name: "CryptoHistory",
-  data() {
-    return {};
+  methods: {
+    dateFormat(date) {
+      return new Date(date).toLocaleString("US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    },
+    currencyFormat(value) {
+      return value.toLocaleString("DE-de", {
+        style: "currency",
+        maximumFractionDigits: 0,
+        currency: "USD",
+      });
+    },
   },
-  computed: {},
   props: {
-    items: {
+    myCrypto: {
       type: Array,
       default: () => [],
     },
   },
 };
 </script>
+<style scoped>
+.td-dark {
+  background-color: #343a40;
+  color: #fff;
+}
+</style>
