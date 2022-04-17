@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>This is a crypto history</h1>
-    <CryptoHistory :myCrypto="myCrypto" />
+    <h2 class="text-center py-3">{{ myCrypto.name }}</h2>
+    <CryptoHistory :myCrypto="myCrypto.data" />
   </div>
 </template>
 <script>

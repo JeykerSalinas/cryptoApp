@@ -61,9 +61,11 @@ export default {
       });
     },
     currencyFormat(value) {
+      let fraction = 0;
+      value < 10 ? (fraction = 4) : value < 100 ? (fraction = 2) : 0;
       return value.toLocaleString("DE-de", {
         style: "currency",
-        maximumFractionDigits: 0,
+        maximumFractionDigits: fraction,
         currency: "USD",
       });
     },

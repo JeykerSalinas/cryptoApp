@@ -1,30 +1,19 @@
 <template>
   <div>
     <b-container>
-      <b-row align-h="end">
-        <b-col cols="3" class="my-3">
-          <input
-            type="text"
-            class="form form-control mh-auto"
-            @keyup="filterData()"
-            v-model="search"
-            placeholder="Search Crypto"
-          />
-        </b-col>
-      </b-row>
-      <b-row>
+      <b-row class="py-3">
         <b-col>
           <b-table
             hover
             responsive
             outlined
-            :items="!search ? items : filteredItems"
+            :items="filterData"
             :fields="fields"
             :per-page="perPage"
             :current-page="currentPage"
             small
             :head-variant="'dark'"
-            :busy="items.length === 0 ? true : false"
+            :busy="myData.length === 0 ? true : false"
             @row-clicked="onRowClicked"
           >
             <!-- Spinner -->
@@ -32,6 +21,12 @@
               <div class="text-center my-2">
                 <b-spinner class="align-middle"></b-spinner>
                 <strong>Loading...</strong>
+              </div>
+            </template>
+            <!-- Rank -->
+            <template #cell(rank)="data">
+              <div class="ms-3">
+                {{ data.item.rank }}
               </div>
             </template>
             <!-- Crypto row -->
@@ -60,17 +55,24 @@
                 <b-icon icon="x-circle" variant="secondary" v-else></b-icon>
               </div>
             </template>
+            <template #cell(type)="data">
+              <div class="ms-2">
+                {{ data.item.type }}
+              </div>
+            </template>
           </b-table>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
           <b-pagination
-            class="justify-content-center"
+            align="center"
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
             aria-controls="my-table"
+            size="sm"
+            pills
           ></b-pagination>
         </b-col>
       </b-row>
@@ -80,6 +82,7 @@
 
 <script>
 import router from "@/router";
+import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   name: "CryptoTable",
   data() {
@@ -93,32 +96,25 @@ export default {
         { key: "is_active", label: "Active" },
         "type",
       ],
-      filteredItems: [],
       search: "",
     };
   },
   computed: {
+    ...mapGetters(["filterData"]),
+    ...mapState(["myData"]),
     rows() {
-      return this.items.length;
+      return this.myData.length;
     },
   },
   methods: {
-    filterData() {
-      this.filteredItems = this.items.filter(
-        (item) =>
-          item.name.toLowerCase().includes(this.search.toLowerCase().trim()) ||
-          item.symbol.toLowerCase().includes(this.search.toLowerCase().trim())
-      );
+    ...mapMutations(["SET_SEARCH"]),
+    searchData() {
+      this.SET_SEARCH(this.search);
     },
     onRowClicked(item) {
       router.push("crypto/" + item.id);
     },
   },
-  props: {
-    items: {
-      type: Array,
-      default: () => [],
-    },
-  },
 };
 </script>
+<style scoped></style>
