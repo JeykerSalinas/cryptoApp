@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import CryptoTable from "@/components/CryptoTable.vue";
 import { mapState, mapActions } from "vuex";
 

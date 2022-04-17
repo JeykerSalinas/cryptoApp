@@ -65,6 +65,7 @@ export default new Vuex.Store({
       try {
         const request = await axios.get(URL);
         const data = request.data;
+        // this validations is necesary, because some of the crypto doesn't have data
         data.length === 0
           ? commit("SET_CRYPTO", { data: emptyData, id: payload })
           : commit("SET_CRYPTO", { data, id: payload });
