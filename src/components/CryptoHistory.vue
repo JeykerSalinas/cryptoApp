@@ -45,6 +45,13 @@
           </b-table>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col class="text-center">
+          <router-link class="mx-auto btn btn-secondary" to="/"
+            >Home</router-link
+          >
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>

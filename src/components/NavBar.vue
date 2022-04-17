@@ -11,7 +11,6 @@
           v-model="search"
           placeholder="Search Crypto"
         />
-        <router-link class="ms-2 btn btn-secondary" to="/">Home</router-link>
       </b-navbar-nav>
     </b-navbar>
   </div>
@@ -19,7 +18,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-import route from "@/router";
 export default {
   name: "NavBar",
   data() {
@@ -30,8 +28,9 @@ export default {
   methods: {
     ...mapMutations(["SET_SEARCH"]),
     searchData() {
-      console.log(route.query);
-      this.SET_SEARCH(this.search);
+      this.$route.name === "home"
+        ? this.SET_SEARCH(this.search)
+        : this.$router.push({ path: "/" }) && this.SET_SEARCH(this.search);
     },
   },
 };
