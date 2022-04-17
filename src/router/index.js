@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import store from "../store";
+// import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -23,7 +23,7 @@ const routes = [
       },
     ],
   },
-  { path: "/*", redirect: "/" },
+  { path: "*", redirect: "/" },
 ];
 
 const router = new VueRouter({
@@ -31,12 +31,12 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-router.beforeEach((to, from, next) => {
-  console.log(from);
-  console.log(next);
-  console.log(to);
-  console.log("hola desde el store" + store.state);
-  next();
-});
+// router.beforeEach((to, from, next) => {
+//   console.log(from);
+//   console.log(next);
+//   console.log(to);
+//   console.log("hola desde el store" + store.state);
+//   next();
+// });
 
 export default router;

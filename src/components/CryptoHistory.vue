@@ -47,8 +47,8 @@
       </b-row>
       <b-row>
         <b-col class="text-center">
-          <router-link class="mx-auto btn btn-secondary" to="/"
-            >Home</router-link
+          <b-button variant="secondary" class="mx-auto" @click="onClick">
+            Home</b-button
           >
         </b-col>
       </b-row>
@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import router from "@/router";
+import { mapMutations } from "vuex";
 export default {
   name: "CryptoHistory",
   methods: {
@@ -76,12 +78,28 @@ export default {
         currency: "USD",
       });
     },
+    onClick() {
+      this.$router.push("/");
+      this.SET_CRYPTO({ data: [], id: "" });
+      console.log("click");
+    },
+    ...mapMutations(["SET_CRYPTO"]),
+    checkData() {
+      setTimeout(() => {
+        if (this.myCrypto.length === 0) {
+          router.push("/");
+        }
+      }, 8000);
+    },
   },
   props: {
     myCrypto: {
       type: Array,
       default: () => [],
     },
+  },
+  mounted() {
+    this.checkData();
   },
 };
 </script>

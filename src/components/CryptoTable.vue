@@ -117,4 +117,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style>
+tr:hover {
+  cursor: pointer;
+}
+</style>

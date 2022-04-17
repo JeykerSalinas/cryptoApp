@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     myData: [],
-    myCrypto: [],
+    myCrypto: { data: [], name: "" },
     mySearch: "",
   },
   getters: {
@@ -27,7 +27,9 @@ export default new Vuex.Store({
     SET_CRYPTO(state, payload) {
       state.myCrypto = {
         data: payload.data,
-        name: state.myData.find((item) => item.id === payload.id).name,
+        name: payload.id
+          ? state.myData.find((item) => item.id === payload.id).name
+          : "",
       };
     },
   },
